@@ -16,6 +16,7 @@ import { ViewMySpeechesComponent } from './pages/view-my-speeches/view-my-speech
 import { SpeechDetailsComponent } from './pages/speech-details/speech-details.component';
 import { EditSpeechComponent } from './pages/edit-speech/edit-speech.component';
 import { SubmitSpeechComponent } from './pages/submit-speech/submit-speech.component';
+import { SearchSpeechesComponent } from './pages/search-speeches/search-speeches.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { SubmitSpeechComponent } from './pages/submit-speech/submit-speech.compo
     SpeechDetailsComponent,
     ViewMySpeechesComponent,
     SubmitSpeechComponent,
+    SearchSpeechesComponent,
   ],
 })
 export class MainModule { }

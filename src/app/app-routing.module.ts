@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import {
   EditSpeechComponent,
+  SearchSpeechesComponent,
   SpeechDetailsComponent,
   SubmitSpeechComponent,
   ViewMySpeechesComponent
@@ -18,6 +19,11 @@ const routes: Routes = [
   {
     path: 'submit-speech',
     component: SubmitSpeechComponent,
+  },
+
+  {
+    path: 'search-speeches',
+    component: SearchSpeechesComponent,
   },
 
   {
