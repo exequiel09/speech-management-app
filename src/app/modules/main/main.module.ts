@@ -8,6 +8,7 @@ import { NgxErrorsModule } from '@hackages/ngxerrors';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ToastrModule } from 'ngx-toastr';
 
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { SpeechFormComponent } from './components/speech-form/speech-form.component';
@@ -26,6 +27,7 @@ import { EditSpeechComponent } from './pages/edit-speech/edit-speech.component';
     BsDatepickerModule,
     NgSelectModule,
     NgxErrorsModule,
+    ToastrModule,
   ],
   declarations: [
     TruncatePipe,

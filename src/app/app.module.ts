@@ -8,6 +8,7 @@ import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ToastrModule } from 'ngx-toastr';
 
 import { LayoutModule } from './layout';
 import { MainModule } from './modules/main/main.module';
@@ -26,6 +27,10 @@ import { environment } from '../environments/environment';
     AlertModule.forRoot(),
     BsDatepickerModule.forRoot(),
     CollapseModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-center',
+      preventDuplicates: true,
+    }),
 
     LayoutModule,
     MainModule,
