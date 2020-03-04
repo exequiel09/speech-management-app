@@ -17,10 +17,12 @@
           <div class="list-group">
             <cdk-virtual-scroll-viewport itemSize="20" [style.minHeight.vh]="80">
               <a class="list-group-item list-group-item-action"
+                routerLinkActive="active"
                 [routerLink]="['/my-speeches', item.id]"
-                *cdkVirtualFor="let item of items">
+                *cdkVirtualFor="let item of items"
+                #speechRla="routerLinkActive">
                 {{ item.content | truncate:0:20 }}
-                <i class="fas fa-arrow-right float-right"></i>
+                <i class="fas fa-arrow-right float-right" *ngIf="speechRla.isActive"></i>
               </a>
             </cdk-virtual-scroll-viewport>
           </div>
