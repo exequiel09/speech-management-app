@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+
+import { NgEntityServiceLoader } from '@datorama/akita-ng-entity-service';
+import { Subject } from 'rxjs';
+import { delay, filter, map, shareReplay, switchMap, takeUntil } from 'rxjs/operators';
+
+import { SpeechesQuery, SpeechesService } from '@speech-management/core/state-management';
 
 @Component({
   selector: 'sm-search-speeches',
@@ -6,11 +12,59 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./search-speeches.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchSpeechesComponent implements OnInit {
+export class SearchSpeechesComponent implements OnDestroy, OnInit {
+  readonly loaders = this._loader.loadersFor('speeches');
+  readonly items$ = this._speechesQuery.matchingSpeeches$;
+  readonly hasSearchQuery$ = this._speechesQuery.hasSearchQuery$;
+  readonly hasSelectedSpeech$ = this._speechesQuery.selectedSpeech$.pipe(
+    map(speech => !!speech),
 
-  constructor() { }
+    shareReplay({
+      bufferSize: 1,
+      refCount: true,
+    })
+  );
 
-  ngOnInit(): void {
+  private readonly _unsubscribe$ = new Subject<any>();
+
+  constructor(
+    private readonly _cdr: ChangeDetectorRef,
+    private readonly _loader: NgEntityServiceLoader,
+    private readonly _speechesQuery: SpeechesQuery,
+    private readonly _speechesService: SpeechesService
+  ) {
+    this.loaders.get$
+      .pipe(
+        delay(100),
+        takeUntil(this._unsubscribe$)
+      )
+      .subscribe(loaded => {
+        if (loaded) {
+          this._cdr.markForCheck();
+        }
+      })
+      ;
+
+    this.items$.subscribe(console.log);
+  }
+
+  ngOnDestroy() {
+    // push a notification value to terminate existing subscribers and complete the subject immediately
+    this._unsubscribe$.next();
+    this._unsubscribe$.complete();
+  }
+
+  ngOnInit() {
+    this._speechesQuery.isLoaded$
+      .pipe(
+        filter(isLoaded => !isLoaded),
+        switchMap(() => this._speechesService.get()),
+        takeUntil(this._unsubscribe$)
+      )
+      .subscribe()
+      ;
   }
 
 }
+
+

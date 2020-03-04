@@ -1,6 +1,30 @@
 <div class="container-fluid container-md">
   <section class="row mt-4">
-    <form>
-    </form>
+    <!-- TODO: add form here and route the result to ?q=searchval -->
+    <ng-container *ngIf="(hasSearchQuery$ | async); else noSearchQuery">
+      <ng-container *ngIf="(items$ | async) as items">
+        <ng-container *ngIf="items.length > 0; else noMatchingItems">
+          <accordion class="w-100">
+            <accordion-group [heading]="item.content | truncate:0:20" *ngFor="let item of items">
+              <p>{{ item.content }}</p>
+
+              <a [routerLink]="['/my-speeches', item.id]">Go to the details</a>
+            </accordion-group>
+          </accordion>
+        </ng-container>
+      </ng-container>
+    </ng-container>
   </section>
 </div>
+
+<ng-template #noSearchQuery>
+  <alert class="w-100" type="info">
+    Please enter your search query.
+  </alert>
+</ng-template>
+
+<ng-template #noMatchingItems>
+  <alert class="w-100" type="info">
+    There are no items that match your search query.
+  </alert>
+</ng-template>

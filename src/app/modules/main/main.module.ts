@@ -6,6 +6,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { NgxErrorsModule } from '@hackages/ngxerrors';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ToastrModule } from 'ngx-toastr';
@@ -25,6 +26,7 @@ import { SearchSpeechesComponent } from './pages/search-speeches/search-speeches
     RouterModule,
     ScrollingModule,
 
+    AccordionModule,
     AlertModule,
     BsDatepickerModule,
     NgSelectModule,
