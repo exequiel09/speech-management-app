@@ -1,0 +1,35 @@
+{
+  "speeches": [
+    {
+      "id": "a8c6sdc",
+      "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo nam quibusdam sequi laborum est repudiandae? Deleniti amet rem ratione fuga ipsa? Autem ducimus dolores, omnis quisquam deserunt officia ipsa aspernatur?",
+      "author": "John Doe",
+      "keywords": [
+        "speech",
+        "lorem",
+        "fake"
+      ],
+      "speechDate": "2020-03-04"
+    },
+    {
+      "content": "This is a test. Please ignore this.",
+      "keywords": [
+        "dummy",
+        "test"
+      ],
+      "author": "Exi",
+      "speechDate": "2020-03-27",
+      "id": "d6740645ba"
+    },
+    {
+      "content": "Quo nam quibusdam sequi laborum est repudiandae?",
+      "keywords": [
+        "hello",
+        "world"
+      ],
+      "author": "Dom",
+      "speechDate": "2020-03-31",
+      "id": "ef011d49b6"
+    }
+  ]
+}
