@@ -1,0 +1,11 @@
+{
+  "speeches": [
+    {
+      "id": "a8c6sdc",
+      "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo nam quibusdam sequi laborum est repudiandae? Deleniti amet rem ratione fuga ipsa? Autem ducimus dolores, omnis quisquam deserunt officia ipsa aspernatur?",
+      "author": "John Doe",
+      "keywords": ["speech", "lorem", "fake"],
+      "speechDate": "2020-03-04"
+    }
+  ]
+}
