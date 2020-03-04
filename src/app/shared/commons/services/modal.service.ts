@@ -10,7 +10,6 @@ import { ShareViaEmailDialogComponent } from '../components/share-via-email-dial
 export interface ConfirmModalOptions extends ModalOptions {
   isBodyHtml: boolean;
   isHeadingHtml: boolean;
-  verticallyCentered: boolean;
   isDanger: boolean;
 }
 
@@ -24,7 +23,7 @@ export class ModalService {
     private readonly _bsModalService: BsModalService
   ) { }
 
-  confirm(title: string, body: string, modalOptions: Partial<any> = {}) {
+  confirm(title: string, body: string, modalOptions: Partial<ConfirmModalOptions> = {}) {
     const resolvedOptions = {
       ignoreBackdropClick: true,
       keyboard: false,
