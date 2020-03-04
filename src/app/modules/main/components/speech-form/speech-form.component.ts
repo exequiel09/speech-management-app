@@ -31,6 +31,7 @@ export class SpeechFormComponent implements OnChanges, OnInit {
   @ViewChild('speechContentErrors') speechContentErrors: NgxErrorsDirective;
   @ViewChild('speechDateErrors') speechDateErrors: NgxErrorsDirective;
   @Input() speech: Speech;
+  @Output() deleteSpeech = new EventEmitter<Speech>();
   @Output() submitSpeech = new EventEmitter<RawSpeech>();
 
   get authorInvalid() {
@@ -88,6 +89,10 @@ export class SpeechFormComponent implements OnChanges, OnInit {
         Validators.required,
       ]]
     });
+  }
+
+  handleDeleteSpeech(speech: Speech) {
+    this.deleteSpeech.emit(speech);
   }
 
   ngOnChanges(changes: SimpleChanges) {

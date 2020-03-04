@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 
 import { filterMethod, filterStore, NgEntityServiceNotifier, ofType } from '@datorama/akita-ng-entity-service';
 import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { switchMap, take, takeUntil, withLatestFrom } from 'rxjs/operators';
 
-import { RawSpeech } from '@speech-management/core';
+import { ModalService } from '@speech-management/shared/commons';
+import { RawSpeech, Speech } from '@speech-management/core';
 import { SpeechesQuery, SpeechesService } from '@speech-management/core/state-management';
 
 @Component({
@@ -24,13 +25,17 @@ export class EditSpeechComponent implements OnDestroy, OnInit {
     private readonly _router: Router,
     private readonly _notifier: NgEntityServiceNotifier,
     private readonly _toastrService: ToastrService,
+    private readonly _modalService: ModalService,
     private readonly _speechesQuery: SpeechesQuery,
     private readonly _speechesService: SpeechesService
   ) {
-    this._notifier.action$
+    const speechSuccessActions$ = this._notifier.action$.pipe(
+      filterStore('speeches'),
+      ofType('success')
+    );
+
+    speechSuccessActions$
       .pipe(
-        filterStore('speeches'),
-        ofType('success'),
         filterMethod('PUT'),
         withLatestFrom(this.speech$),
         takeUntil(this._unsubscribe$)
@@ -40,15 +45,38 @@ export class EditSpeechComponent implements OnDestroy, OnInit {
         this._router.navigate(['/my-speeches', speech.id]);
       })
       ;
+
+    speechSuccessActions$
+      .pipe(
+        filterMethod('DELETE'),
+        takeUntil(this._unsubscribe$)
+      )
+      .subscribe(() => {
+        this._toastrService.success('Speech has been removed', 'Speech Removed');
+        this._router.navigate(['/my-speeches']);
+      })
+      ;
   }
 
-  ngOnDestroy() {
-    // push a notification value to terminate existing subscribers and complete the subject immediately
-    this._unsubscribe$.next();
-    this._unsubscribe$.complete();
-  }
+  handleDeleteSpeech(speech: Speech) {
+    const { reply$ } = this._modalService.confirm('Delete Speech', 'Are you sure you want to delete this speech?');
+    const replyOnce$ = reply$.pipe(take(1));
 
-  ngOnInit() { }
+    replyOnce$
+      .pipe(
+        switchMap((reply) => {
+          if (!reply) {
+            return of(null);
+          }
+
+          return this._speechesService.delete(speech.id);
+        }),
+
+        takeUntil(this._unsubscribe$)
+      )
+      .subscribe()
+      ;
+  }
 
   handleSubmitSpeech(speech: RawSpeech) {
     const speech$ = this.speech$.pipe(take(1));
@@ -64,6 +92,14 @@ export class EditSpeechComponent implements OnDestroy, OnInit {
       })
       ;
   }
+
+  ngOnDestroy() {
+    // push a notification value to terminate existing subscribers and complete the subject immediately
+    this._unsubscribe$.next();
+    this._unsubscribe$.complete();
+  }
+
+  ngOnInit() { }
 
 }
 

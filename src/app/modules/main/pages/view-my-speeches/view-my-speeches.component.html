@@ -1,27 +1,45 @@
 <div class="container-fluid container-md">
   <div class="row mt-4">
-    <div class="col col-12 col-md-5"
-      [class.d-none]="hasSelectedSpeech$ | async"
-      [class.d-md-block]="hasSelectedSpeech$ | async">
-        <div class="list-group">
-          <cdk-virtual-scroll-viewport itemSize="20" [style.minHeight.vh]="80">
-            <a class="list-group-item list-group-item-action"
-              [routerLink]="['/my-speeches', item.id]"
-              *cdkVirtualFor="let item of (items$ | async)">
-              {{ item.content | truncate:0:20 }}
-              <i class="fas fa-arrow-right float-right"></i>
-            </a>
-          </cdk-virtual-scroll-viewport>
-        </div>
-    </div>
-
-    <div class="col col-12 col-md-7">
-      <router-outlet></router-outlet>
-      <alert class="d-none d-md-block" type="info" *ngIf="!(hasSelectedSpeech$ | async)">
-        Please click 1 speech in list on the left to view its details.
+    <ng-container *ngIf="(loaders.get$ | async); else loaded">
+      <alert type="info">
+        Please wait while your speeches are being fetched.
       </alert>
-    </div>
+    </ng-container>
   </div>
 </div>
+
+<ng-template #loaded>
+  <ng-container *ngIf="(items$ | async) as items">
+    <ng-container *ngIf="items.length > 0; else noSpeechesYet">
+      <div class="col col-12 col-md-5"
+        [class.d-none]="hasSelectedSpeech$ | async"
+        [class.d-md-block]="hasSelectedSpeech$ | async">
+          <div class="list-group">
+            <cdk-virtual-scroll-viewport itemSize="20" [style.minHeight.vh]="80">
+              <a class="list-group-item list-group-item-action"
+                [routerLink]="['/my-speeches', item.id]"
+                *cdkVirtualFor="let item of items">
+                {{ item.content | truncate:0:20 }}
+                <i class="fas fa-arrow-right float-right"></i>
+              </a>
+            </cdk-virtual-scroll-viewport>
+          </div>
+      </div>
+
+      <div class="col col-12 col-md-7">
+        <router-outlet></router-outlet>
+        <alert class="d-none d-md-block" type="info" *ngIf="!(hasSelectedSpeech$ | async)">
+          Please click 1 speech in list on the left to view its details.
+        </alert>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #noSpeechesYet>
+  <alert class="w-100" type="info">
+    There are no saved speeches. Please <a [routerLink]="['/create-speech']">create a new one</a>.
+  </alert>
+</ng-template>
 
 

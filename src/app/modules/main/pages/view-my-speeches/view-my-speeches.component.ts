@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 
+import { NgEntityServiceLoader } from '@datorama/akita-ng-entity-service';
 import { Subject } from 'rxjs';
 import { map, shareReplay, takeUntil } from 'rxjs/operators';
 
@@ -12,8 +13,9 @@ import { SpeechesQuery, SpeechesService } from '@speech-management/core/state-ma
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewMySpeechesComponent implements OnDestroy, OnInit {
-  items$ = this._speechesQuery.selectAll();
-  hasSelectedSpeech$ = this._speechesQuery.selectedSpeech$.pipe(
+  readonly loaders = this._loader.loadersFor('speeches');
+  readonly items$ = this._speechesQuery.selectAll();
+  readonly hasSelectedSpeech$ = this._speechesQuery.selectedSpeech$.pipe(
     map(speech => !!speech),
 
     shareReplay({
@@ -25,6 +27,7 @@ export class ViewMySpeechesComponent implements OnDestroy, OnInit {
   private readonly _unsubscribe$ = new Subject<any>();
 
   constructor(
+    private readonly _loader: NgEntityServiceLoader,
     private readonly _speechesQuery: SpeechesQuery,
     private readonly _speechesService: SpeechesService
   ) { }
