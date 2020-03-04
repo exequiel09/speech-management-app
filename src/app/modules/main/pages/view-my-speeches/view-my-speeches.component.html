@@ -11,6 +11,10 @@
 <ng-template #loaded>
   <ng-container *ngIf="(items$ | async) as items">
     <ng-container *ngIf="items.length > 0; else noSpeechesYet">
+      <div class="d-flex d-md-none col col-12">
+        <ng-container *ngIf="(hasSelectedSpeech$ | async); else speechNotFound"></ng-container>
+      </div>
+
       <div class="col col-12 col-md-5"
         [class.d-none]="hasSelectedSpeech$ | async"
         [class.d-md-block]="hasSelectedSpeech$ | async">
@@ -30,7 +34,9 @@
 
       <div class="col col-12 col-md-7">
         <router-outlet></router-outlet>
-        <ng-container *ngIf="(hasSelectedSpeech$ | async); else noSelected"></ng-container>
+        <div class="d-none d-md-block">
+          <ng-container *ngIf="(hasSelectedSpeech$ | async); else speechNotFound"></ng-container>
+        </div>
       </div>
     </ng-container>
   </ng-container>
@@ -44,9 +50,16 @@
   </div>
 </ng-template>
 
+<ng-template #speechNotFound>
+  <alert class="w-100" type="info" *ngIf="(hasSelectedSpeechParam$ | async); else noSelected">
+    Requested speech cannot be found. Please select one for the
+    <a [routerLink]="['/my-speeches']">list of speeches</a>.
+  </alert>
+</ng-template>
+
 <ng-template #noSelected>
-  <alert class="d-none d-md-block" type="info">
-    Please click 1 speech in list on the left to view its details.
+  <alert class="w-100" type="info">
+    Please click 1 speech in list to view its details.
   </alert>
 </ng-template>
 
