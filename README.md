@@ -1,7 +1,7 @@
 # Speech Management App
 
 This project is a tech challenge for a job application and was generated
-with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.4.
+with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.5.
 
 ## Development server
 
