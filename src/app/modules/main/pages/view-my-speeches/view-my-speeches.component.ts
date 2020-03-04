@@ -15,6 +15,7 @@ import { SpeechesQuery, SpeechesService } from '@speech-management/core/state-ma
 export class ViewMySpeechesComponent implements OnDestroy, OnInit {
   readonly loaders = this._loader.loadersFor('speeches');
   readonly items$ = this._speechesQuery.selectAll();
+  readonly hasSelectedSpeechParam$ = this._speechesQuery.hasSelectedSpeechParam$;
   readonly hasSelectedSpeech$ = this._speechesQuery.selectedSpeech$.pipe(
     map(speech => !!speech),
 

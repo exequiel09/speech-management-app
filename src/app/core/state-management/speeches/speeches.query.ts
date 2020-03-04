@@ -16,7 +16,13 @@ export class SpeechesQuery extends QueryEntity<SpeechesState, Speech> {
     map(({ ids, loading }: { ids: string[]; loading: boolean; }) => ids.length >= 0 && !loading)
   );
 
-  readonly selectedSpeech$ = this._routerQuery.selectParams('id').pipe(
+  readonly selectedSpeechId$ = this._routerQuery.selectParams('id');
+
+  readonly hasSelectedSpeechParam$ = this.selectedSpeechId$.pipe(
+    map((id: string | undefined) => !!id)
+  );
+
+  readonly selectedSpeech$ = this.selectedSpeechId$.pipe(
     switchMap((id: string) => this.selectEntity(id))
   );
 
