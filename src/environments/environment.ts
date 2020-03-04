@@ -9,7 +9,7 @@ export const environment = {
   apiBaseUrl: 'http://localhost:5000',
   imports: {
     modules: [
-      AkitaNgDevtools.forRoot(),
+      AkitaNgDevtools,
     ],
   },
 };
