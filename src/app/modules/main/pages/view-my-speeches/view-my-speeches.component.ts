@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 import { SpeechesQuery, SpeechesService } from '@speech-management/core/state-management';
 
@@ -13,7 +13,12 @@ import { SpeechesQuery, SpeechesService } from '@speech-management/core/state-ma
 export class ViewMySpeechesComponent implements OnInit {
   items$ = this._speechesQuery.selectAll();
   hasSelectedSpeech$ = this._speechesQuery.selectedSpeech$.pipe(
-    map(speech => !!speech)
+    map(speech => !!speech),
+
+    shareReplay({
+      bufferSize: 1,
+      refCount: true,
+    })
   );
 
   constructor(
