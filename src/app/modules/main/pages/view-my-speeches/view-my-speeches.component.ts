@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
+import { SpeechesQuery, SpeechesService } from '@speech-management/core/state-management';
+
 @Component({
   selector: 'sm-view-my-speeches',
   templateUrl: './view-my-speeches.component.html',
@@ -7,34 +9,15 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewMySpeechesComponent implements OnInit {
-  items = [
-    {
-      id: 'asd721',
-      content: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo nam quibusdam sequi laborum est repudiandae?',
-      author: 'John Doe',
-      keywords: ['fake', 'speech', 'test'],
-      speechDate: '2020-03-10'
-    },
+  items$ = this._speechesQuery.selectAll();
 
-    {
-      id: 'asd722',
-      content: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo nam quibusdam sequi laborum est repudiandae?',
-      author: 'John Doe',
-      keywords: ['fake', 'speech', 'test'],
-      speechDate: '2020-03-10'
-    },
+  constructor(
+    private readonly _speechesQuery: SpeechesQuery,
+    private readonly _speechesService: SpeechesService
+  ) { }
 
-    {
-      id: 'asd723',
-      content: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo nam quibusdam sequi laborum est repudiandae?',
-      author: 'John Doe',
-      keywords: ['fake', 'speech', 'test'],
-      speechDate: '2020-03-10'
-    }
-  ]
-
-  constructor() { }
-
-  ngOnInit() { }
+  ngOnInit() {
+    this._speechesService.get().subscribe();
+  }
 
 }

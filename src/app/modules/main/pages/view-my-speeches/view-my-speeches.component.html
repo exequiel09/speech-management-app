@@ -4,8 +4,8 @@
         <div class="list-group">
           <cdk-virtual-scroll-viewport itemSize="20" [style.minHeight.vh]="80">
             <a class="list-group-item list-group-item-action"
-              [routerLink]="['/my-speeches/1']"
-              *cdkVirtualFor="let item of items">
+              [routerLink]="['/my-speeches', item.id]"
+              *cdkVirtualFor="let item of (items$ | async)">
               {{ item.content | truncate:0:20 }}
               <i class="fas fa-arrow-right float-right"></i>
             </a>

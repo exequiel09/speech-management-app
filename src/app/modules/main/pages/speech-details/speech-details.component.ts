@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
+import { SpeechesQuery } from '@speech-management/core/state-management';
+
 @Component({
   selector: 'sm-speech-details',
   templateUrl: './speech-details.component.html',
@@ -7,8 +9,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SpeechDetailsComponent implements OnInit {
+  speech$ = this._speechesQuery.selectedSpeech$;
 
-  constructor() { }
+  constructor(private readonly _speechesQuery: SpeechesQuery) { }
 
   ngOnInit() { }
 
