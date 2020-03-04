@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SpeechDetailsComponent, ViewMySpeechesComponent } from './modules/main';
+import { EditSpeechComponent, SpeechDetailsComponent, ViewMySpeechesComponent } from './modules/main';
 
 const routes: Routes = [
   {
@@ -18,6 +18,11 @@ const routes: Routes = [
         path: ':id',
         component: SpeechDetailsComponent
       },
+
+      {
+        path: ':id/edit',
+        component: EditSpeechComponent
+      },
     ],
   },
 ];
@@ -27,3 +32,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+

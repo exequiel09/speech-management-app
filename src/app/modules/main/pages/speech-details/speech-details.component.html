@@ -18,8 +18,13 @@
 
     <div class="col col-12 mb-4 mb-md-0 mt-md-4">
       <div class="float-md-right">
-      	<button type="button" class="btn btn-danger btn-block-sm mb-2 mr-sm-2 mb-sm-0">Delete</button>
-      	<button type="button" class="btn btn-primary btn-block-sm mb-2 mr-sm-2 mb-sm-0">Edit</button>
+      	<button type="button" class="btn btn-danger btn-block-sm mb-2 mr-sm-2 mb-sm-0">
+          Delete
+        </button>
+        <a class="btn btn-primary btn-block-sm mb-2 mr-sm-2 mb-sm-0"
+          [routerLink]="['/my-speeches', speech.id, 'edit']">
+          Edit
+        </a>
       	<button type="button" class="btn btn-secondary btn-block-sm">Share</button>
       </div>
     </div>

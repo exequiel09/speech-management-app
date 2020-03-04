@@ -7,6 +7,7 @@ import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { LayoutModule } from './layout';
 import { MainModule } from './modules/main/main.module';
@@ -23,6 +24,7 @@ import { environment } from '../environments/environment';
 
     AkitaNgRouterStoreModule.forRoot(),
     AlertModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     CollapseModule.forRoot(),
 
     LayoutModule,

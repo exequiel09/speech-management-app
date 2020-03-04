@@ -6,4 +6,6 @@ export interface Speech {
   speechDate: string;
 }
 
+export type RawSpeech = Omit<Speech, 'id'>;
+
 

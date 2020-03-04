@@ -1,27 +1,40 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
+import { NgxErrorsModule } from '@hackages/ngxerrors';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { SpeechFormComponent } from './components/speech-form/speech-form.component';
 import { ViewMySpeechesComponent } from './pages/view-my-speeches/view-my-speeches.component';
 import { SpeechDetailsComponent } from './pages/speech-details/speech-details.component';
+import { EditSpeechComponent } from './pages/edit-speech/edit-speech.component';
 
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule,
     ScrollingModule,
 
     AlertModule,
+    BsDatepickerModule,
+    NgxErrorsModule,
   ],
   declarations: [
     TruncatePipe,
 
+    SpeechFormComponent,
+
+    EditSpeechComponent,
     SpeechDetailsComponent,
     ViewMySpeechesComponent,
   ],
 })
 export class MainModule { }
+
+

@@ -1,0 +1,12 @@
+<div class="container">
+  <section class="row" *ngIf="(speech$ | async) as speech">
+    <div class="col col-12">
+      <sm-speech-form
+        [speech]="speech"
+        (submitSpeech)="handleSubmitSpeech($event)">
+      </sm-speech-form>
+    </div>
+  </section>
+</div>
+
+

@@ -1,0 +1,66 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-group">
+    <textarea class="form-control" id="sm_sf_content_ta" rows="5" placeholder="Speech content"
+      formControlName="content"
+      [class.is-invalid]="contentInvalidInvalid">
+    </textarea>
+
+    <div class="invalid-feedback" ngxErrors="content" #speechContentErrors="ngxErrors">
+      <span ngxError="required" when="touched">Speech Content is required.</span>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col col-12 col-lg-4 mb-3 mb-lg-0">
+      <input type="text" class="form-control" placeholder="Author"
+        formControlName="author"
+        [class.is-invalid]="authorInvalid" />
+
+      <div class="invalid-feedback" ngxErrors="author" #authorErrors="ngxErrors">
+        <span ngxError="required" when="touched">Author is required.</span>
+      </div>
+    </div>
+    <div class="col col-12 col-lg-4 mb-3 mb-lg-0">
+      <input type="text" class="form-control" placeholder="Subject area keywords"
+        formControlName="keywords"
+        [class.is-invalid]="keywordsInvalid" />
+
+      <div class="invalid-feedback" ngxErrors="keywords" #keywordsErrors="ngxErrors">
+        <span ngxError="required" when="touched">Keywords is required.</span>
+      </div>
+    </div>
+    <div class="col col-12 col-lg-4">
+      <div class="input-group">
+        <input type="text" class="form-control" formControlName="speechDate"
+          bsDatepicker
+          [class.is-invalid]="speechDateInvalid"
+          [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+          #dateInput />
+
+        <div class="input-group-append" (click)="dateInput.focus(); dateInput.click()">
+          <div class="input-group-text">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+        </div>
+
+        <div class="invalid-feedback" ngxErrors="speechDate" #speechDateErrors="ngxErrors">
+          <span ngxError="required" when="touched">Speech Date is required.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row mt-4">
+    <div class="col col-12">
+      <div class="float-md-right">
+        <button type="button" class="btn btn-danger btn-block-sm mb-2 mr-sm-2 mb-sm-0">Delete</button>
+        <button type="submit" class="btn btn-primary btn-block-sm mb-2 mr-sm-2 mb-sm-0" [disabled]="!form.valid">
+          Save
+        </button>
+        <button type="button" class="btn btn-secondary btn-block-sm">Share</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+
