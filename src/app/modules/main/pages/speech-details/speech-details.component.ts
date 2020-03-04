@@ -59,7 +59,11 @@ export class SpeechDetailsComponent implements OnDestroy, OnInit {
 
         takeUntil(this._unsubscribe$)
       )
-      .subscribe()
+      .subscribe({
+        error: (_error) => {
+          this._toastrService.error('Something went wrong in delete the speech', 'Speech Removal Failure');
+        }
+      })
       ;
   }
 

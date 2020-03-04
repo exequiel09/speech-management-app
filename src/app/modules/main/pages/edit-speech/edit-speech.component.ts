@@ -74,7 +74,11 @@ export class EditSpeechComponent implements OnDestroy, OnInit {
 
         takeUntil(this._unsubscribe$)
       )
-      .subscribe()
+      .subscribe({
+        error: (_error) => {
+          this._toastrService.error('Something went wrong in delete the speech', 'Speech Removal Failure');
+        }
+      })
       ;
   }
 
@@ -83,7 +87,9 @@ export class EditSpeechComponent implements OnDestroy, OnInit {
 
     speech$
       .pipe(
-        switchMap(selectedSpeech => this._speechesService.update(selectedSpeech.id, speech))
+        switchMap(selectedSpeech => this._speechesService.update(selectedSpeech.id, speech)),
+
+        takeUntil(this._unsubscribe$)
       )
       .subscribe({
         error: (_error) => {
