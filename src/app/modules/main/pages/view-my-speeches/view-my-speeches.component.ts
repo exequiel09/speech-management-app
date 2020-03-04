@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
+import { map } from 'rxjs/operators';
+
 import { SpeechesQuery, SpeechesService } from '@speech-management/core/state-management';
 
 @Component({
@@ -10,6 +12,9 @@ import { SpeechesQuery, SpeechesService } from '@speech-management/core/state-ma
 })
 export class ViewMySpeechesComponent implements OnInit {
   items$ = this._speechesQuery.selectAll();
+  hasSelectedSpeech$ = this._speechesQuery.selectedSpeech$.pipe(
+    map(speech => !!speech)
+  );
 
   constructor(
     private readonly _speechesQuery: SpeechesQuery,

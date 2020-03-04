@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
+import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { LayoutModule } from './layout';
@@ -21,6 +22,7 @@ import { environment } from '../environments/environment';
     HttpClientModule,
 
     AkitaNgRouterStoreModule.forRoot(),
+    AlertModule.forRoot(),
     CollapseModule.forRoot(),
 
     LayoutModule,
