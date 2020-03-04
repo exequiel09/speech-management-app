@@ -21,12 +21,19 @@
       </div>
     </div>
     <div class="col col-12 col-lg-4 mb-3 mb-lg-0">
-      <input type="text" class="form-control" placeholder="Subject area keywords"
-        formControlName="keywords"
-        [class.is-invalid]="keywordsInvalid" />
+      <div class="custom-ng-select" [class.is-invalid]="keywordsInvalid">
+        <ng-select formControlName="keywords"
+          [items]="[]"
+          [addTag]="true"
+          [multiple]="true"
+          [selectOnTab]="true"
+          [isOpen]="false">
+        </ng-select>
+      </div>
 
       <div class="invalid-feedback" ngxErrors="keywords" #keywordsErrors="ngxErrors">
         <span ngxError="required" when="touched">Keywords is required.</span>
+        <span ngxError="arrayLength" when="dirty">Must contain at least 1 keyword.</span>
       </div>
     </div>
     <div class="col col-12 col-lg-4">

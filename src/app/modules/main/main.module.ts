@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { NgxErrorsModule } from '@hackages/ngxerrors';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
@@ -23,6 +24,7 @@ import { EditSpeechComponent } from './pages/edit-speech/edit-speech.component';
 
     AlertModule,
     BsDatepickerModule,
+    NgSelectModule,
     NgxErrorsModule,
   ],
   declarations: [

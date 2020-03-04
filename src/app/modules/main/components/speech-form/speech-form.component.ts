@@ -12,7 +12,8 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NgxErrorsDirective } from '@hackages/ngxerrors';
-import { format, parse } from 'date-fns'
+import { format, parse } from 'date-fns';
+import { CustomValidators } from 'ngx-custom-validators';
 
 import { RawSpeech, Speech } from '@speech-management/core';
 
@@ -53,7 +54,10 @@ export class SpeechFormComponent implements OnChanges, OnInit {
       return false;
     }
 
-    return this.keywordsErrors.hasError('required', 'touched');
+    return (
+      this.keywordsErrors.hasError('required', 'touched') ||
+      this.keywordsErrors.hasError('arrayLength', 'dirty')
+    );
   }
 
   get speechDateInvalid() {
@@ -75,6 +79,7 @@ export class SpeechFormComponent implements OnChanges, OnInit {
       ]],
       keywords: [[], [
         Validators.required,
+        CustomValidators.arrayLength(1),
       ]],
       author: ['', [
         Validators.required,
