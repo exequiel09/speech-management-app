@@ -30,9 +30,7 @@
 
       <div class="col col-12 col-md-7">
         <router-outlet></router-outlet>
-        <alert class="d-none d-md-block" type="info" *ngIf="!(hasSelectedSpeech$ | async)">
-          Please click 1 speech in list on the left to view its details.
-        </alert>
+        <ng-container *ngIf="(hasSelectedSpeech$ | async); else noSelected"></ng-container>
       </div>
     </ng-container>
   </ng-container>
@@ -41,6 +39,12 @@
 <ng-template #noSpeechesYet>
   <alert class="w-100" type="info">
     There are no saved speeches. Please <a [routerLink]="['/submit-speech']">create a new one</a>.
+  </alert>
+</ng-template>
+
+<ng-template #noSelected>
+  <alert class="d-none d-md-block" type="info">
+    Please click 1 speech in list on the left to view its details.
   </alert>
 </ng-template>
 
