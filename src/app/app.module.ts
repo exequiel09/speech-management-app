@@ -27,7 +27,7 @@ import { environment } from '../environments/environment';
     HttpClientModule,
 
     AccordionModule.forRoot(),
-    AkitaNgRouterStoreModule.forRoot(),
+    AkitaNgRouterStoreModule,
     AlertModule.forRoot(),
     BsDatepickerModule.forRoot(),
     CollapseModule.forRoot(),
