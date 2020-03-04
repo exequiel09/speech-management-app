@@ -150,6 +150,12 @@
               "devServerTarget": "speech-management-app:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://exequiel09.github.io/speech-management-app/"
+          }
         }
       }
     }

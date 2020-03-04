@@ -6,7 +6,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
 export const environment = {
   production: false,
-  apiBaseUrl: ' http://localhost:5000',
+  apiBaseUrl: 'http://localhost:5000',
   imports: {
     modules: [
       AkitaNgDevtools.forRoot(),
