@@ -6,6 +6,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { NgxErrorsModule } from '@hackages/ngxerrors';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ToastrModule } from 'ngx-toastr';
@@ -16,6 +17,8 @@ import { ViewMySpeechesComponent } from './pages/view-my-speeches/view-my-speech
 import { SpeechDetailsComponent } from './pages/speech-details/speech-details.component';
 import { EditSpeechComponent } from './pages/edit-speech/edit-speech.component';
 import { SubmitSpeechComponent } from './pages/submit-speech/submit-speech.component';
+import { SearchSpeechesComponent } from './pages/search-speeches/search-speeches.component';
+import { SpeechSearchFormComponent } from './components/speech-search-form/speech-search-form.component';
 
 @NgModule({
   imports: [
@@ -24,6 +27,7 @@ import { SubmitSpeechComponent } from './pages/submit-speech/submit-speech.compo
     RouterModule,
     ScrollingModule,
 
+    AccordionModule,
     AlertModule,
     BsDatepickerModule,
     NgSelectModule,
@@ -39,6 +43,8 @@ import { SubmitSpeechComponent } from './pages/submit-speech/submit-speech.compo
     SpeechDetailsComponent,
     ViewMySpeechesComponent,
     SubmitSpeechComponent,
+    SearchSpeechesComponent,
+    SpeechSearchFormComponent,
   ],
 })
 export class MainModule { }

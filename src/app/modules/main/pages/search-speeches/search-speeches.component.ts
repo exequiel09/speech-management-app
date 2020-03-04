@@ -1,20 +1,23 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NgEntityServiceLoader } from '@datorama/akita-ng-entity-service';
 import { Subject } from 'rxjs';
-import { delay, filter, map, shareReplay, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { delay, filter, map, shareReplay, switchMap, takeUntil } from 'rxjs/operators';
 
 import { SpeechesQuery, SpeechesService } from '@speech-management/core/state-management';
 
 @Component({
-  selector: 'sm-view-my-speeches',
-  templateUrl: './view-my-speeches.component.html',
-  styleUrls: ['./view-my-speeches.component.scss'],
+  selector: 'sm-search-speeches',
+  templateUrl: './search-speeches.component.html',
+  styleUrls: ['./search-speeches.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewMySpeechesComponent implements OnDestroy, OnInit {
+export class SearchSpeechesComponent implements OnDestroy, OnInit {
   readonly loaders = this._loader.loadersFor('speeches');
-  readonly items$ = this._speechesQuery.selectAll();
+  readonly items$ = this._speechesQuery.matchingSpeeches$;
+  readonly searchQuery$ = this._speechesQuery.searchQuery$;
+  readonly hasSearchQuery$ = this._speechesQuery.hasSearchQuery$;
   readonly hasSelectedSpeech$ = this._speechesQuery.selectedSpeech$.pipe(
     map(speech => !!speech),
 
@@ -28,7 +31,7 @@ export class ViewMySpeechesComponent implements OnDestroy, OnInit {
 
   constructor(
     private readonly _cdr: ChangeDetectorRef,
-    private readonly _ngZone: NgZone,
+    private readonly _router: Router,
     private readonly _loader: NgEntityServiceLoader,
     private readonly _speechesQuery: SpeechesQuery,
     private readonly _speechesService: SpeechesService
@@ -40,13 +43,18 @@ export class ViewMySpeechesComponent implements OnDestroy, OnInit {
       )
       .subscribe(loaded => {
         if (loaded) {
-          // Side-effect to trigger the change detection since
-          // `routerLinkActive` directive does not propagate changes to `isActive` property
-          // if the parent component's change detection strategy is set to `OnPush`.
           this._cdr.markForCheck();
         }
       })
       ;
+  }
+
+  handleSearch(q: string) {
+    this._router.navigate(['/search-speeches'], {
+      queryParams: {
+        q,
+      },
+    });
   }
 
   ngOnDestroy() {
@@ -58,17 +66,6 @@ export class ViewMySpeechesComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this._speechesQuery.isLoaded$
       .pipe(
-        tap(() => {
-          // Side-effect to trigger the change detection since
-          // `routerLinkActive` directive does not propagate changes to `isActive` property
-          // if the parent component's change detection strategy is set to `OnPush`.
-          this._ngZone.runOutsideAngular(() => {
-            setTimeout(() => {
-              this._ngZone.run(() => this._cdr.markForCheck());
-            }, 0);
-          })
-        }),
-
         filter(isLoaded => !isLoaded),
         switchMap(() => this._speechesService.get()),
         takeUntil(this._unsubscribe$)
@@ -78,3 +75,5 @@ export class ViewMySpeechesComponent implements OnDestroy, OnInit {
   }
 
 }
+
+
