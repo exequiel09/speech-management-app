@@ -60,11 +60,15 @@
   <div class="form-row mt-4">
     <div class="col col-12">
       <div class="float-md-right">
-        <button type="button" class="btn btn-danger btn-block-sm mb-2 mr-sm-2 mb-sm-0">Delete</button>
+        <button type="button" class="btn btn-danger btn-block-sm mb-2 mr-sm-2 mb-sm-0"
+          (click)="handleDeleteSpeech(speech)"
+          *ngIf="!!speech">
+          Delete
+        </button>
         <button type="submit" class="btn btn-primary btn-block-sm mb-2 mr-sm-2 mb-sm-0" [disabled]="!form.valid">
           {{ !!speech ? 'Save' : 'Add' }}
         </button>
-        <button type="button" class="btn btn-secondary btn-block-sm">Share</button>
+        <button type="button" class="btn btn-secondary btn-block-sm" *ngIf="!!speech">Share</button>
       </div>
     </div>
   </div>
