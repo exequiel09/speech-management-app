@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { NgEntityServiceLoader } from '@datorama/akita-ng-entity-service';
 import { Subject } from 'rxjs';
-import { map, shareReplay, takeUntil } from 'rxjs/operators';
+import { delay, map, shareReplay, takeUntil } from 'rxjs/operators';
 
 import { SpeechesQuery, SpeechesService } from '@speech-management/core/state-management';
 
@@ -27,10 +27,23 @@ export class ViewMySpeechesComponent implements OnDestroy, OnInit {
   private readonly _unsubscribe$ = new Subject<any>();
 
   constructor(
+    private readonly _cdr: ChangeDetectorRef,
     private readonly _loader: NgEntityServiceLoader,
     private readonly _speechesQuery: SpeechesQuery,
     private readonly _speechesService: SpeechesService
-  ) { }
+  ) {
+    this.loaders.get$
+      .pipe(
+        delay(100),
+        takeUntil(this._unsubscribe$)
+      )
+      .subscribe(loaded => {
+        if (loaded) {
+          this._cdr.markForCheck();
+        }
+      })
+      ;
+  }
 
   ngOnDestroy() {
     // push a notification value to terminate existing subscribers and complete the subject immediately
