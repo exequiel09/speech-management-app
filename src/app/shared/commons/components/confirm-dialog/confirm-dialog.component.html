@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <h3 class="m-0" *ngIf="!isHeadingHtml; else titleHtml">{{ title }}</h3>
+</div>
+<div class="modal-body">
+  <p class="mb-0" *ngIf="!isBodyHtml; else bodyHtml">{{ body }}</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn text-uppercase"
+    [class.btn-danger]="isDanger"
+    [class.btn-primary]="!isDanger"
+    (click)="confirm.emit(true)">
+    {{ yesBtnTxt }}
+  </button>
+  <button type="button" class="btn btn-primary text-uppercase" data-dismiss="modal" (click)="confirm.emit(false)">
+    {{ noBtnTxt }}
+  </button>
+</div>
+
+<ng-template #titleHtml>
+  <header [innerHTML]="title"></header>
+</ng-template>
+
+<ng-template #bodyHtml>
+  <div [innerHTML]="body"></div>
+</ng-template>
+
+
