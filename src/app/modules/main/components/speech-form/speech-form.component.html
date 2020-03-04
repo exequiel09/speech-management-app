@@ -68,7 +68,11 @@
         <button type="submit" class="btn btn-primary btn-block-sm mb-2 mr-sm-2 mb-sm-0" [disabled]="!form.valid">
           {{ !!speech ? 'Save' : 'Add' }}
         </button>
-        <button type="button" class="btn btn-secondary btn-block-sm" *ngIf="!!speech">Share</button>
+        <button type="button" class="btn btn-secondary btn-block-sm"
+          (click)="shareSpeech.emit()"
+          *ngIf="!!speech">
+          Share
+        </button>
       </div>
     </div>
   </div>

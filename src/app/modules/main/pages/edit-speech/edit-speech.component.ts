@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { filterMethod, filterStore, NgEntityServiceNotifier, ofType } from '@datorama/akita-ng-entity-service';
 import { ToastrService } from 'ngx-toastr';
 import { of, Subject } from 'rxjs';
-import { switchMap, take, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { delay, switchMap, take, takeUntil, withLatestFrom } from 'rxjs/operators';
 
 import { ModalService } from '@speech-management/shared/commons';
 import { RawSpeech, Speech } from '@speech-management/core';
@@ -78,6 +78,21 @@ export class EditSpeechComponent implements OnDestroy, OnInit {
         error: (_error) => {
           this._toastrService.error('Something went wrong in delete the speech', 'Speech Removal Failure');
         }
+      })
+      ;
+  }
+
+  handleShareSpeech() {
+    const { email$ } = this._modalService.shareViaEmail();
+    const emailOnce$ = email$.pipe(take(1));
+
+    emailOnce$
+      .pipe(
+        delay(300),
+        takeUntil(this._unsubscribe$)
+      )
+      .subscribe(() => {
+        this._toastrService.success('Speech has been successfully shared', 'Speech Share Success');
       })
       ;
   }

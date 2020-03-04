@@ -32,6 +32,7 @@ export class SpeechFormComponent implements OnChanges, OnInit {
   @ViewChild('speechDateErrors') speechDateErrors: NgxErrorsDirective;
   @Input() speech: Speech;
   @Output() deleteSpeech = new EventEmitter<Speech>();
+  @Output() shareSpeech = new EventEmitter<any>();
   @Output() submitSpeech = new EventEmitter<RawSpeech>();
 
   get authorInvalid() {

@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { take, tap } from 'rxjs/operators';
+import { take, takeUntil, tap } from 'rxjs/operators';
 
 import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
+import { ShareViaEmailDialogComponent } from '../components/share-via-email-dialog/share-via-email-dialog.component';
 
 export interface ConfirmModalOptions extends ModalOptions {
   isBodyHtml: boolean;
@@ -54,6 +55,46 @@ export class ModalService {
       modalRef,
       component,
       reply$,
+    };
+  }
+
+  shareViaEmail(modalOptions: Partial<any> = {}) {
+    const resolvedOptions = {
+      ignoreBackdropClick: true,
+      keyboard: false,
+      ...modalOptions,
+    };
+
+    const modalRef = this._bsModalService.show(ShareViaEmailDialogComponent, {
+      ...resolvedOptions,
+      class: `sm-modal-dialog -confirm modal-dialog-centered`,
+    });
+
+    const component = modalRef.content as ShareViaEmailDialogComponent;
+
+    const email$ = component.share.pipe(
+      tap(() => modalRef.hide()),
+
+      take(1)
+    );
+
+    component.cancel
+      .pipe(
+        tap(() => modalRef.hide()),
+
+        take(1),
+
+        takeUntil(this._bsModalService.onHidden)
+      )
+      .subscribe()
+      ;
+
+    component.markAsStable();
+
+    return {
+      modalRef,
+      component,
+      email$,
     };
   }
 
