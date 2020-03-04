@@ -20,8 +20,11 @@
           View My Speeches <span class="sr-only" *ngIf="msRla.isActive">(current)</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" (click)="false">Submit a new Speech</a>
+      <li class="nav-item" [class.active]="snSRla.isActive">
+        <a class="nav-link"
+          routerLinkActive
+          [routerLink]="['/submit-speech']"
+          #snSRla="routerLinkActive">Submit a new Speech</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#" (click)="false">Search all Speeches</a>

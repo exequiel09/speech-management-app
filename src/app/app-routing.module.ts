@@ -1,13 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { EditSpeechComponent, SpeechDetailsComponent, ViewMySpeechesComponent } from './modules/main';
+import {
+  EditSpeechComponent,
+  SpeechDetailsComponent,
+  SubmitSpeechComponent,
+  ViewMySpeechesComponent
+} from './modules/main';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: '/my-speeches',
     pathMatch: 'full'
+  },
+
+  {
+    path: 'submit-speech',
+    component: SubmitSpeechComponent,
   },
 
   {
