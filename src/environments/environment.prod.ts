@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiBaseUrl: ' http://localhost:5000',
+  apiBaseUrl: 'https://my-json-server.typicode.com/exequiel09/speech-management-app',
   imports: {
     modules: [],
   },
