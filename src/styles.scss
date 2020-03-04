@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+$fa-font-path: '../node_modules/@fortawesome/fontawesome-free/webfonts';
+
+@import '~bootstrap/scss/bootstrap';
+@import '~ngx-toastr/toastr';
+@import '~@ng-select/ng-select/scss/default.theme';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+.custom-ng-select.is-invalid {
+  > .ng-select {
+    &.ng-touched {
+      > .ng-select-container {
+        border-color: $danger;
+
+        &:not(.ng-select-opened) {
+          border-color: $danger;
+        }
+
+        > .ng-arrow-wrapper {
+          border-color: $danger;
+        }
+      }
+
+      &.ng-select-focused > .ng-select-container {
+        border-color: $danger;
+
+        &:not(.ng-select-opened) {
+          border-color: $danger;
+        }
+
+        > .ng-arrow-wrapper {
+          border-color: $danger;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: breakpoint-min(sm)) {
+  .btn-block-sm {
+    display: block;
+    width: 100%;
+  }
+}
+
+

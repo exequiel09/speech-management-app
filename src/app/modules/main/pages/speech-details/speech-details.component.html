@@ -1,0 +1,34 @@
+<div class="container">
+  <section class="row" *ngIf="(speech$ | async) as speech">
+    <div class="col col-12">
+      <p>
+        {{ speech.content }}
+      </p>
+    </div>
+
+    <div class="col col-12 col-md-3 mb-2 mb-md-0">{{ speech.author }}</div>
+    <div class="col col-12 col-md-5 mb-2 mb-md-0">
+      <span class="badge badge-info d-inline-block"
+        [class.mr-2]="!last"
+        *ngFor="let keyword of speech.keywords; let last = last">
+        {{ keyword }}
+      </span>
+    </div>
+    <div class="col col-12 col-md-3 mb-2 mb-md-0">{{ speech.speechDate | date }}</div>
+
+    <div class="col col-12 mb-4 mb-md-0 mt-md-4">
+      <div class="float-md-right">
+      	<button type="button" class="btn btn-danger btn-block-sm mb-2 mr-sm-2 mb-sm-0">
+          Delete
+        </button>
+        <a class="btn btn-primary btn-block-sm mb-2 mr-sm-2 mb-sm-0"
+          [routerLink]="['/my-speeches', speech.id, 'edit']">
+          Edit
+        </a>
+      	<button type="button" class="btn btn-secondary btn-block-sm">Share</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+

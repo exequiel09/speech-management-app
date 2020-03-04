@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" [routerLink]="['/']">{{ pageTitle }}</a>
+  <button class="navbar-toggler" type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    (click)="toggle()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [collapse]="collapsed">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" [class.active]="msRla.isActive">
+        <a class="nav-link"
+          routerLinkActive
+          [routerLink]="['/my-speeches']"
+          #msRla="routerLinkActive">
+          View My Speeches <span class="sr-only" *ngIf="msRla.isActive">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="false">Submit a new Speech</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="false">Search all Speeches</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
