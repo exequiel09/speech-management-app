@@ -1,30 +1,44 @@
 <div class="container-fluid container-md">
   <section class="row mt-4">
-    <!-- TODO: add form here and route the result to ?q=searchval -->
-    <ng-container *ngIf="(hasSearchQuery$ | async); else noSearchQuery">
-      <ng-container *ngIf="(items$ | async) as items">
-        <ng-container *ngIf="items.length > 0; else noMatchingItems">
-          <accordion class="w-100">
-            <accordion-group [heading]="item.content | truncate:0:20" *ngFor="let item of items">
-              <p>{{ item.content }}</p>
+    <div class="col col-12">
+      <sm-speech-search-form
+        [initialSearch]="searchQuery$ | async"
+        (search)="handleSearch($event)">
+      </sm-speech-search-form>
 
-              <a [routerLink]="['/my-speeches', item.id]">Go to the details</a>
-            </accordion-group>
-          </accordion>
+      <ng-container *ngIf="(hasSearchQuery$ | async); else noSearchQuery">
+        <ng-container *ngIf="(items$ | async) as items">
+          <ng-container *ngIf="items.length > 0; else noMatchingItems">
+            <strong class="d-block mt-4 mb-4" *ngIf="(searchQuery$ | async) as searchQuery">
+              Speeches that match the search query: {{ searchQuery }}
+            </strong>
+
+            <accordion class="w-100">
+              <accordion-group [heading]="item.content | truncate:0:20"
+                *ngFor="let item of items">
+                <p>{{ item.content }}</p>
+
+                <a [routerLink]="['/my-speeches', item.id]">
+                  Go to the details
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </accordion-group>
+            </accordion>
+          </ng-container>
         </ng-container>
       </ng-container>
-    </ng-container>
+    </div>
   </section>
 </div>
 
 <ng-template #noSearchQuery>
-  <alert class="w-100" type="info">
+  <alert class="d-block w-100 mt-4" type="info">
     Please enter your search query.
   </alert>
 </ng-template>
 
 <ng-template #noMatchingItems>
-  <alert class="w-100" type="info">
+  <alert class="d-block w-100 mt-4" type="info">
     There are no items that match your search query.
   </alert>
 </ng-template>

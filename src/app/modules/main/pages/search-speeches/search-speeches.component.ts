@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NgEntityServiceLoader } from '@datorama/akita-ng-entity-service';
 import { Subject } from 'rxjs';
@@ -15,6 +16,7 @@ import { SpeechesQuery, SpeechesService } from '@speech-management/core/state-ma
 export class SearchSpeechesComponent implements OnDestroy, OnInit {
   readonly loaders = this._loader.loadersFor('speeches');
   readonly items$ = this._speechesQuery.matchingSpeeches$;
+  readonly searchQuery$ = this._speechesQuery.searchQuery$;
   readonly hasSearchQuery$ = this._speechesQuery.hasSearchQuery$;
   readonly hasSelectedSpeech$ = this._speechesQuery.selectedSpeech$.pipe(
     map(speech => !!speech),
@@ -29,6 +31,7 @@ export class SearchSpeechesComponent implements OnDestroy, OnInit {
 
   constructor(
     private readonly _cdr: ChangeDetectorRef,
+    private readonly _router: Router,
     private readonly _loader: NgEntityServiceLoader,
     private readonly _speechesQuery: SpeechesQuery,
     private readonly _speechesService: SpeechesService
@@ -44,8 +47,14 @@ export class SearchSpeechesComponent implements OnDestroy, OnInit {
         }
       })
       ;
+  }
 
-    this.items$.subscribe(console.log);
+  handleSearch(q: string) {
+    this._router.navigate(['/search-speeches'], {
+      queryParams: {
+        q,
+      },
+    });
   }
 
   ngOnDestroy() {
