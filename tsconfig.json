@@ -22,7 +22,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@speech-management/*": [
+        "./src/app/*",
+        "./src/environments/*"
+      ]
+    },
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
